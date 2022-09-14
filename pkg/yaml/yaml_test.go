@@ -50,11 +50,11 @@ kind: Namespace
 metadata:
   name: kubeapps
 ---
-apiVersion: extensions/v1       
+apiVersion: networking.k8s.io/v1       
 kind: Deployment
 metadata:
   name: kubeapps`,
-			2, []string{"v1", "extensions/v1"}, []string{"Namespace", "Deployment"},
+			2, []string{"v1", "networking.k8s.io/v1"}, []string{"Namespace", "Deployment"},
 		},
 		{
 			"ignores files with just comments",

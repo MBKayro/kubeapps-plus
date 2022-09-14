@@ -54,7 +54,7 @@ Return the apiVerion of deployment.
 */}}
 {{- define "deployment.apiVersion" -}}
 {{- if semverCompare "<1.14-0" .Capabilities.KubeVersion.GitVersion -}}
-{{- print "extensions/v1" -}}
+{{- print "networking.k8s.io/v1" -}}
 {{- else if semverCompare ">=1.14-0" .Capabilities.KubeVersion.GitVersion -}}
 {{- print "apps/v1" -}}
 {{- end -}}
