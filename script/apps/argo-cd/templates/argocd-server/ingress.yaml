@@ -1,8 +1,8 @@
 {{- if .Values.server.ingress.enabled -}}
-{{- $serviceName := include "argo-cd.server.fullname" . -}}
+{{- $servicename := include "argo-cd.server.fullname" . -}}
 {{- $servicePort := .Values.server.service.servicePortHttps -}}
 {{- $paths := .Values.server.ingress.paths -}}
-apiVersion: extensions/v1beta1
+apiVersion: extensions/v1
 kind: Ingress
 metadata:
 {{- if .Values.server.ingress.annotations }}
@@ -32,8 +32,8 @@ spec:
   {{- range $p := $paths }}
           - path: {{ $p }}
             backend:
-              serviceName: {{ $serviceName }}
-              servicePort: {{ $servicePort }}
+              service.name: {{ $servicename }}
+              service.port.name: {{ $servicePort }}
   {{- end -}}
   {{- end -}}
   {{- else }}
@@ -42,8 +42,8 @@ spec:
   {{- range $p := $paths }}
           - path: {{ $p }}
             backend:
-              serviceName: {{ $serviceName }}
-              servicePort: {{ $servicePort }}
+              service.name: {{ $servicename }}
+              service.port.name: {{ $servicePort }}
   {{- end -}}
   {{- end -}}
   {{- if .Values.server.ingress.tls }}

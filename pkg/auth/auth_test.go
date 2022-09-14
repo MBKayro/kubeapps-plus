@@ -71,7 +71,7 @@ func newFakeUserAuth() *UserAuth {
 		},
 	}
 	resourceListExtensionsV1Beta1 := metav1.APIResourceList{
-		GroupVersion: "extensions/v1beta1",
+		GroupVersion: "extensions/v1",
 		APIResources: []metav1.APIResource{
 			{Name: "deployments", Kind: "Deployment", Namespaced: true},
 		},
@@ -147,12 +147,12 @@ metadata:
 apiVersion: apps/v1beta1
 kind: Deployment
 ---
-apiVersion: extensions/v1beta1
+apiVersion: extensions/v1
 kind: Deployment
 `,
 			ExpectedActions: []Action{
 				{APIVersion: "apps/v1beta1", Resource: "deployments", Namespace: "foo", Verbs: []string{"create"}},
-				{APIVersion: "extensions/v1beta1", Resource: "deployments", Namespace: "foo", Verbs: []string{"create"}},
+				{APIVersion: "extensions/v1", Resource: "deployments", Namespace: "foo", Verbs: []string{"create"}},
 			},
 		},
 		// It should report the same resource with different verbs when upgrading

@@ -1,5 +1,5 @@
 {{- if .Values.ingress.enabled -}}
-apiVersion: extensions/v1beta1
+apiVersion: extensions/v1
 kind: Ingress
 metadata:
   name: {{ template "kubeapps.fullname" . }}
@@ -19,8 +19,8 @@ spec:
         paths:
         - path: /
           backend:
-            serviceName: {{ template "kubeapps.fullname" . }}
-            servicePort: http
+            service.name: {{ template "kubeapps.fullname" . }}
+            service.port.name: http
     {{- end }}
     {{- range .Values.ingress.extraHosts }}
     - host: {{ .name }}
@@ -28,8 +28,8 @@ spec:
         paths:
         - path: {{ default "/" .path }}
           backend:
-            serviceName: {{ template "kubeapps.fullname" $ }}
-            servicePort: http
+            service.name: {{ template "kubeapps.fullname" $ }}
+            service.port.name: http
     {{- end }}
     ## The block below is deprecated and must removed on 3.0.0
     {{- range .Values.ingress.hosts }}
@@ -38,7 +38,7 @@ spec:
         paths:
         - path: {{ default "/" .path }}
           backend:
-            serviceName: {{ template "kubeapps.fullname" $ }}
+            service.name: {{ template "kubeapps.fullname" $ }}
             servicePort: http
     {{- end }}
     ## end of block

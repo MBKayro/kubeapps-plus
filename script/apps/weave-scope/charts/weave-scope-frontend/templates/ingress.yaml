@@ -1,7 +1,7 @@
 {{- if .Values.ingress.enabled -}}
 {{- $fullName := .Values.global.service.name | default (include "toplevel.fullname" .) -}}
 {{- $ingressPaths := .Values.ingress.paths -}}
-apiVersion: extensions/v1beta1
+apiVersion: extensions/v1
 kind: Ingress
 metadata:
   labels:
@@ -32,8 +32,8 @@ spec:
     {{- range $ingressPaths }}
           - path: {{ . }}
             backend:
-              serviceName: {{ $fullName }}
-              servicePort: http
+              service.name: {{ $fullName }}
+              service.port.name: http
     {{- end }}
   {{- end }}
 {{- end }}

@@ -23,7 +23,7 @@
   {{- $_ := set . "chartrepo_path" "/chartrepo/" -}}
   {{- $_ := set . "controller_path" "/c/" -}}
 {{- end }}
-apiVersion: extensions/v1beta1
+apiVersion: extensions/v1
 kind: Ingress
 metadata:
   name: {{ include "harbor.ingress" . }}
@@ -59,36 +59,36 @@ spec:
   {{- end }}
   {{- if eq .Values.service.ingress.controller "ncp" }}
   backend:
-    serviceName: {{ include "harbor.portal" . }}
-    servicePort: http
+    service.name: {{ include "harbor.portal" . }}
+    service.port.name: http
   {{- end }}
   rules:
     - http:
         paths:
           - path: {{ .portal_path }}
             backend:
-              serviceName: {{ include "harbor.portal" . }}
-              servicePort: http
+              service.name: {{ include "harbor.portal" . }}
+              service.port.name: http
           - path: {{ .api_path }}
             backend:
-              serviceName: {{ include "harbor.core" . }}
-              servicePort: http
+              service.name: {{ include "harbor.core" . }}
+              service.port.name: http
           - path: {{ .service_path }}
             backend:
-              serviceName: {{ include "harbor.core" . }}
-              servicePort: http
+              service.name: {{ include "harbor.core" . }}
+              service.port.name: http
           - path: {{ .v2_path }}
             backend:
-              serviceName: {{ include "harbor.core" . }}
-              servicePort: http
+              service.name: {{ include "harbor.core" . }}
+              service.port.name: http
           - path: {{ .chartrepo_path }}
             backend:
-              serviceName: {{ include "harbor.core" . }}
-              servicePort: http
+              service.name: {{ include "harbor.core" . }}
+              service.port.name: http
           - path: {{ .controller_path }}
             backend:
-              serviceName: {{ include "harbor.core" . }}
-              servicePort: http
+              service.name: {{ include "harbor.core" . }}
+              service.port.name: http
       {{- if $ingress.hosts.core }}
       host: {{ $ingress.hosts.core }}
       {{- end }}
@@ -97,8 +97,8 @@ spec:
         paths:
           - path: /
             backend:
-              serviceName: {{ include "harbor.notary-server" . }}
-              servicePort: notary-server
+              service.name: {{ include "harbor.notary-server" . }}
+              service.port.name: notary-server
       {{- if $ingress.hosts.notary }}
       host: {{ $ingress.hosts.notary }}
       {{- end }}

@@ -1,5 +1,5 @@
 {{- if .Values.ingress.enabled }}
-apiVersion: extensions/v1beta1
+apiVersion: extensions/v1
 kind: Ingress
 metadata:
   name: {{ template "jenkins.fullname" . }}
@@ -19,8 +19,8 @@ spec:
         paths:
           - path: /
             backend:
-              serviceName: {{ template "jenkins.fullname" $ }}
-              servicePort: http
+              service.name: {{ template "jenkins.fullname" $ }}
+              service.port.name: http
     {{- end }}
     {{- range .Values.ingress.hosts }}
     - host: {{ .name }}
@@ -28,8 +28,8 @@ spec:
         paths:
           - path: {{ default "/" .path }}
             backend:
-              serviceName: {{ template "jenkins.fullname" $ }}
-              servicePort: http
+              service.name: {{ template "jenkins.fullname" $ }}
+              service.port.name: http
     {{- end }}
   {{- if .Values.ingress.tls }}
   tls: {{- toYaml .Values.ingress.tls | nindent 4 }}

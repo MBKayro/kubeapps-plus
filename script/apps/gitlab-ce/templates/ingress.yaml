@@ -1,5 +1,5 @@
 {{- if .Values.ingress.enabled }}
-apiVersion: extensions/v1beta1
+apiVersion: extensions/v1
 kind: Ingress
 metadata:
 {{- if .Values.ingress.annotations }}
@@ -20,15 +20,15 @@ spec:
       paths:
       - path: /
         backend:
-          serviceName: {{ template "gitlab-ce.fullname" . }}
-          servicePort: {{ .Values.httpsPort }}
+          service.name: {{ template "gitlab-ce.fullname" . }}
+          service.port.name: {{ .Values.httpsPort }}
     {{- else }}
     http:
       paths:
       - path: /
         backend:
-          serviceName: {{ template "gitlab-ce.fullname" . }}
-          servicePort: {{ .Values.httpPort }}
+          service.name: {{ template "gitlab-ce.fullname" . }}
+          service.port.name: {{ .Values.httpPort }}
     {{- end }}
 
 {{- if .Values.ingress.tls }}

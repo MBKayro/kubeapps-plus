@@ -41,7 +41,7 @@ Return the appropriate apiVersion for networkpolicy.
 */}}
 {{- define "postgresql.networkPolicy.apiVersion" -}}
 {{- if semverCompare ">=1.4-0, <1.7-0" .Capabilities.KubeVersion.GitVersion -}}
-"extensions/v1beta1"
+"extensions/v1"
 {{- else if semverCompare "^1.7-0" .Capabilities.KubeVersion.GitVersion -}}
 "networking.k8s.io/v1"
 {{- end -}}
@@ -130,8 +130,8 @@ Return PostgreSQL replication username
 Return PostgreSQL port
 */}}
 {{- define "postgresql.port" -}}
-{{- if .Values.global.postgresql.servicePort }}
-    {{- .Values.global.postgresql.servicePort -}}
+{{- if .Values.global.postgresql.service.port.number }}
+    {{- .Values.global.postgresql.service.port.number -}}
 {{- else -}}
     {{- .Values.service.port -}}
 {{- end -}}
