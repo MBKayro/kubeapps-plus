@@ -31,4 +31,16 @@ spec:
           port:
             type: string
   # The conversion section is introduced in Kubernetes 1.13+ with a default value of
+  # None conversion (strategy sub-field set to None).
+  conversion:
+    # None conversion assumes the same schema for all versions and only sets the apiVersion
+    # field of custom resources to the proper value
+    strategy: None
+  # either Namespaced or Cluster
+  scope: Namespaced
+  names:
+    kind: AppRepository
+    plural: apprepositories
+    shortNames:
+      - apprepos
                                                                                                                             1,1           Top
